@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cron Explainer BD</title>
+<meta name="description" content="Offline bilingual EN/Bangla cron expression explainer and next-run calculator for Bangladesh students and developers.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <h1><span data-i18n="title">Cron Explainer BD</span><span class="dot">.</span></h1>
+      <p data-i18n="subtitle">Understand any cron expression and see the next runs - 100% offline.</p>
+    </div>
+    <button id="langBtn" type="button">Bangla</button>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="inputLabel">
+      <label class="field-label" id="inputLabel" for="cronInput" data-i18n="inputLabel">Cron expression</label>
+      <input id="cronInput" type="text" value="0 9 * * 1-5" spellcheck="false"
+             autocomplete="off" data-i18n-ph="inputPlaceholder" placeholder="e.g. */15 9-17 * * 1-5">
+      <div id="macroLine" class="macro-line" hidden></div>
+      <div id="emptyHint" class="hint" hidden>
+        <span data-i18n="emptyHint">Type a cron expression above - or tap a preset below - to see a plain-language explanation and the next 10 runs.</span>
+      </div>
+      <div id="errorBox" hidden role="alert"></div>
+      <div id="rebootNote" class="note" hidden>
+        <span data-i18n="rebootNote">@reboot is valid, but it is not a schedule: the command runs once when the machine boots, so there are no "next runs" to list.</span>
+      </div>
+    </section>
+
+    <section class="card" id="explainWrap" hidden>
+      <h2 data-i18n="chipsTitle">Field by field</h2>
+      <div class="chips" id="chips"></div>
+      <h2 style="margin-top:20px" data-i18n="summaryTitle">Plain-language summary</h2>
+      <p class="summary" id="summary"></p>
+      <div id="orTrapWarn" class="note warn" hidden>
+        <span data-i18n="orTrap">Heads up: both day-of-month and day-of-week are restricted, so this runs when EITHER matches - the classic cron OR trap. See the pitfalls below.</span>
+      </div>
+    </section>
+
+    <section class="card" id="runsWrap" hidden>
+      <h2 data-i18n="runsTitle">Next 10 runs</h2>
+      <p id="nowLine"></p>
+      <div class="runs-list" id="runsList"></div>
+      <div id="runsEmpty" class="hint" hidden>
+        <span data-i18n="noRuns">No runs found within the next 4 years. (Example: 30 February never exists.)</span>
+      </div>
+    </section>
+
+    <section class="card" id="copyWrap" hidden>
+      <div class="copy-row">
+        <button class="btn secondary" id="copyCronBtn" type="button" data-i18n="copyCron">Copy expression</button>
+        <button class="btn" id="copyExplBtn" type="button" data-i18n="copyExpl">Copy explanation</button>
+        <span id="copyMsg" role="status"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="presetsTitle">Quick presets</h2>
+      <div class="preset-btns" id="presetBtns"></div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="pitfallsTitle">Common pitfalls</h2>
+      <div class="pitfall-grid" id="pitfallCards"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p data-i18n="footer">Educational parser for the standard 5-field cron (Vixie/ISC style) plus @macros. Quartz and other flavors use 6 or 7 fields - check your system's cron flavor before relying on a schedule. Runs 100% offline in your browser; nothing is sent anywhere.</p>
+  </footer>
+</div>
+
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
